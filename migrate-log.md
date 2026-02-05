@@ -9,7 +9,7 @@
 # 登录功能迁移记录
 ## 📌 基本信息
 需求描述：将meisoft-admin项目中的登录功能迁移到vue-vben-admin项目中，确保登录功能在新项目中正常运行。项目请求的后端服务接口的地址公共部分用http://8.135.112.50:8881/api，后半部分的地址跟老项目访问各个功能的url一直，比如登录：/iam/authenticate/admin/login
-- **分支目录**：feature/feature-migration-1
+- **分支目录**：feature/feature-login
 - **关联Issue**：https://github.com/vinsonking80-web/vue-vben-admin/issues/10
 - **开始时间**：2025.02.05 17:00
 - **状态**：🔄 进行中 ()
