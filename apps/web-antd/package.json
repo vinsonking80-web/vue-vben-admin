@@ -28,6 +28,7 @@
   "dependencies": {
     "@vben/access": "workspace:*",
     "@vben/common-ui": "workspace:*",
+    "@vben/components": "^1.0.1",
     "@vben/constants": "workspace:*",
     "@vben/hooks": "workspace:*",
     "@vben/icons": "workspace:*",
@@ -43,6 +44,7 @@
     "@vueuse/core": "catalog:",
     "ant-design-vue": "catalog:",
     "dayjs": "catalog:",
+    "md5": "^2.3.0",
     "pinia": "catalog:",
     "vue": "catalog:",
     "vue-router": "catalog:"

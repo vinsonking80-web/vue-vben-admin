@@ -46,7 +46,7 @@ function createRequestClient(baseURL: string, options?: RequestClientOptions) {
   }
 
   /**
-   * 刷新token逻辑
+   * 刷新token逻辑（老系统一般不需要 refresh token，这里保留框架能力）
    */
   async function doRefreshToken() {
     const accessStore = useAccessStore();
@@ -56,8 +56,9 @@ function createRequestClient(baseURL: string, options?: RequestClientOptions) {
     return newToken;
   }
 
+  // ✅ 老系统是纯 token，不需要 Bearer
   function formatToken(token: null | string) {
-    return token ? `Bearer ${token}` : null;
+    return token || null;
   }
 
   // 请求头处理
@@ -65,13 +66,23 @@ function createRequestClient(baseURL: string, options?: RequestClientOptions) {
     fulfilled: async (config) => {
       const accessStore = useAccessStore();
 
-      config.headers.Authorization = formatToken(accessStore.accessToken);
+      // ✅ 按你的要求：requestHeaders['access-token'] = tokenValue
+      const token = formatToken(accessStore.accessToken);
+      if (token) {
+        // header key 按你的浏览器调用方式固定为 access-token
+        // 注意：HTTP header 大小写不敏感，但这里按你给的写
+        (config.headers as any)['access-token'] = token;
+      }
+
+      // ✅ 老项目固定加的
+      (config.headers as any)['Response-Wrapper'] = true;
+
       config.headers['Accept-Language'] = preferences.app.locale;
       return config;
     },
   });
 
-  // 处理返回的响应数据格式
+  // 处理返回的响应数据格式：{ code, msg, data }
   client.addResponseInterceptor(
     defaultResponseInterceptor({
       codeField: 'code',
@@ -80,7 +91,7 @@ function createRequestClient(baseURL: string, options?: RequestClientOptions) {
     }),
   );
 
-  // token过期的处理
+  // token过期的处理（老系统通常不会走 refresh；若后端有对应规则可再细化）
   client.addResponseInterceptor(
     authenticateResponseInterceptor({
       client,
@@ -91,14 +102,11 @@ function createRequestClient(baseURL: string, options?: RequestClientOptions) {
     }),
   );
 
-  // 通用的错误处理,如果没有进入上面的错误处理逻辑，就会进入这里
+  // 通用错误处理
   client.addResponseInterceptor(
     errorMessageResponseInterceptor((msg: string, error) => {
-      // 这里可以根据业务进行定制,你可以拿到 error 内的信息进行定制化处理，根据不同的 code 做不同的提示，而不是直接使用 message.error 提示 msg
-      // 当前mock接口返回的错误字段是 error 或者 message
       const responseData = error?.response?.data ?? {};
       const errorMessage = responseData?.error ?? responseData?.message ?? '';
-      // 如果没有错误信息，则会根据状态码进行提示
       message.error(errorMessage || msg);
     }),
   );
