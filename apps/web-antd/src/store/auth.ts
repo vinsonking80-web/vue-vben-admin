@@ -33,7 +33,10 @@ export const useAuthStore = defineStore('auth', () => {
     let userInfo: null | UserInfo = null;
     try {
       loginLoading.value = true;
-      const { accessToken } = await loginApi(params);
+      const loginRes = await loginApi(params);
+      console.log('Login response:', loginRes);
+      const accessToken = loginRes?.tokenValue;
+      const loginId = loginRes?.loginId;
 
       // 如果成功获取到 accessToken
       if (accessToken) {
@@ -42,11 +45,11 @@ export const useAuthStore = defineStore('auth', () => {
         // 获取用户信息并存储到 accessStore 中
         const [fetchUserInfoResult, accessCodes] = await Promise.all([
           fetchUserInfo(),
-          getAccessCodesApi(),
+          getAccessCodesApi(loginId),
         ]);
 
         userInfo = fetchUserInfoResult;
-
+        console.log('Fetched user info:', userInfo);  
         userStore.setUserInfo(userInfo);
         accessStore.setAccessCodes(accessCodes);
 
@@ -60,9 +63,9 @@ export const useAuthStore = defineStore('auth', () => {
               );
         }
 
-        if (userInfo?.realName) {
+        if (userInfo?.accountName) {
           notification.success({
-            description: `${$t('authentication.loginSuccessDesc')}:${userInfo?.realName}`,
+            description: `${$t('authentication.loginSuccessDesc')}:${userInfo?.accountName}`,
             duration: 3,
             message: $t('authentication.loginSuccess'),
           });

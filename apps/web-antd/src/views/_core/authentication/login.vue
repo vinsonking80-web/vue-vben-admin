@@ -30,20 +30,20 @@ const MOCK_USER_OPTIONS: BasicOption[] = [
 
 const formSchema = computed((): VbenFormSchema[] => {
   return [
-    {
-      component: 'VbenSelect',
-      componentProps: {
-        options: MOCK_USER_OPTIONS,
-        placeholder: $t('authentication.selectAccount'),
-      },
-      fieldName: 'selectAccount',
-      label: $t('authentication.selectAccount'),
-      rules: z
-        .string()
-        .min(1, { message: $t('authentication.selectAccount') })
-        .optional()
-        .default('vben'),
-    },
+    // {
+    //   component: 'VbenSelect',
+    //   componentProps: {
+    //     options: MOCK_USER_OPTIONS,
+    //     placeholder: $t('authentication.selectAccount'),
+    //   },
+    //   fieldName: 'selectAccount',
+    //   label: $t('authentication.selectAccount'),
+    //   rules: z
+    //     .string()
+    //     .min(1, { message: $t('authentication.selectAccount') })
+    //     .optional()
+    //     .default('vben'),
+    // },
     {
       component: 'VbenInput',
       componentProps: {
@@ -78,19 +78,25 @@ const formSchema = computed((): VbenFormSchema[] => {
       label: $t('authentication.password'),
       rules: z.string().min(1, { message: $t('authentication.passwordTip') }),
     },
-    {
-      component: markRaw(SliderCaptcha),
-      fieldName: 'captcha',
-      rules: z.boolean().refine((value) => value, {
-        message: $t('authentication.verifyRequiredTip'),
-      }),
-    },
+    // {
+    //   component: markRaw(SliderCaptcha),
+    //   fieldName: 'captcha',
+    //   rules: z.boolean().refine((value) => value, {
+    //     message: $t('authentication.verifyRequiredTip'),
+    //   }),
+    // },
   ];
 });
 </script>
 
 <template>
   <AuthenticationLogin
+    :show-code-login="false"
+    :show-qrcode-login="false"
+    :show-register="false"
+    :show-third-party-login="false"
+    :show-remember-me="false"
+    :show-forget-password="false"
     :form-schema="formSchema"
     :loading="authStore.loginLoading"
     @submit="authStore.authLogin"

@@ -43,6 +43,7 @@
     "@vueuse/core": "catalog:",
     "ant-design-vue": "catalog:",
     "dayjs": "catalog:",
+    "md5": "^2.3.0",
     "pinia": "catalog:",
     "vue": "catalog:",
     "vue-router": "catalog:"
