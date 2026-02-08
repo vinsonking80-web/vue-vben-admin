@@ -15,6 +15,7 @@ import { generateAccess } from './access';
  * @param router
  */
 function setupCommonGuard(router: Router) {
+  console.log('Setting up common guard=======');
   // 记录已经加载的页面
   const loadedPaths = new Set<string>();
 
@@ -45,6 +46,7 @@ function setupCommonGuard(router: Router) {
  * @param router
  */
 function setupAccessGuard(router: Router) {
+  console.log('Setting up access guard=======');
   router.beforeEach(async (to, from) => {
     const accessStore = useAccessStore();
     const userStore = useUserStore();
@@ -124,6 +126,7 @@ function setupAccessGuard(router: Router) {
  * @param router
  */
 function createRouterGuard(router: Router) {
+  console.log('Creating router guard=======');
   /** 通用 */
   setupCommonGuard(router);
   /** 权限访问 */
