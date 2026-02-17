@@ -23,7 +23,7 @@ overrides:
   vue: 'catalog:'
 
 catalog:
-  '@ast-grep/napi': ^0.39.9
+  '@ast-grep/napi': ^0.40.5
   '@changesets/changelog-github': ^0.5.2
   '@changesets/cli': ^2.29.8
   '@changesets/git': ^3.0.4
@@ -47,7 +47,7 @@ catalog:
   '@tailwindcss/nesting': 0.0.0-insiders.565cd3e
   '@tailwindcss/typography': ^0.5.19
   '@tanstack/vue-query': ^5.92.9
-  '@tanstack/vue-store': ^0.8.0
+  '@tanstack/vue-store': ^0.9.1
   '@types/archiver': ^6.0.4
   '@types/eslint': ^9.6.1
   '@types/html-minifier-terser': ^7.0.2
@@ -96,7 +96,7 @@ catalog:
   echarts: ^6.0.0
   element-plus: ^2.13.1
   es-toolkit: ^1.44.0
-  esbuild: ^0.25.12
+  esbuild: ^0.27.3
   eslint: ^9.39.2
   eslint-config-turbo: ^2.7.6
   eslint-plugin-command: ^3.4.0
@@ -129,7 +129,7 @@ catalog:
   jsonwebtoken: ^9.0.3
   lefthook: ^2.0.16
   lodash.clonedeep: ^4.5.0
-  lucide-vue-next: ^0.553.0
+  lucide-vue-next: ^0.574.0
   medium-zoom: ^1.1.0
   naive-ui: ^2.43.2
   nitropack: ^2.13.1
@@ -200,4 +200,4 @@ catalog:
   watermark-js-plus: ^1.6.3
   yaml-eslint-parser: ^1.3.2
   zod: ^3.25.76
-  zod-defaults: 0.1.3
+  zod-defaults: 0.2.3
